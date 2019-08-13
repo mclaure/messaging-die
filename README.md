@@ -21,15 +21,13 @@ HOW TO INSTALL
 
 1) Download the code
 2) run the following command:
--E: \Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run client.go
--Starting Public Service
+- E: \Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run client.go
+- Starting Public Service
 
 3) run the following command:
--E:\Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run server.go
--2019/08/12 21:34:03 [*] Consuming from queue (rpc-die-queue)
--2019/08/12 21:34:04 [S] Waiting for RPC requests
-
-- GO Project architecture for an Async communication
+- E:\Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run server.go
+- 2019/08/12 21:34:03 [*] Consuming from queue (rpc-die-queue)
+- 2019/08/12 21:34:04 [S] Waiting for RPC requests
 
 ![Async-Communication](https://user-images.githubusercontent.com/24611413/62910317-10e43200-bd4e-11e9-8e77-70e31d3794ae.jpg)
 
