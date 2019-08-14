@@ -13,24 +13,23 @@ For a long time they have been keeping all of this data locally, without sharing
 ```
 What approach would you suggest them to use for efficiently sharing their data with other organizations?
 
-## Near real-worl API solution
-```
+## Die MannSchaft : Sync API solution
 Simple API that provides soccer statistics using a public database
 - Source Data: https://www.kaggle.com/hugomathien/soccer
 - Data description: http://www.football-data.co.uk/notes.txt
-```
+
 Repository: https://github.com/mclaure/die-mannschaft
 
 ![Sync-Communication](https://user-images.githubusercontent.com/24611413/62910994-b8626400-bd50-11e9-923b-ef0d5d8f3c1f.jpg)
 
 ## Installing
 
-1) Download the code
-2) run the following command:
+* Download the code
+* run the following command:
 - E: \Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run client.go
 - Starting Public Service
 
-3) run the following command:
+* run the following command:
 - E:\Go-Projects\src\github.com\mclaure\messaging-die\rpc>go run server.go
 - 2019/08/12 21:34:03 [*] Consuming from queue (rpc-die-queue)
 - 2019/08/12 21:34:04 [S] Waiting for RPC requests
@@ -45,12 +44,12 @@ Repository: https://github.com/mclaure/die-mannschaft
 
 ## Available APIs
 
-1)  GET /countries
-2)  GET /teams
-3)  GET /leagues
+*  GET /countries
+*  GET /teams
+*  GET /leagues
 
 ## Authors
 
-* **Marcelo Claure** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
-* **Boris Dominguez** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
-* **Claudio Melendres** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
+* **Marcelo Claure** - *Initial work*
+* **Boris Dominguez** - *Initial work*
+* **Claudio Melendres** - *Initial work*
