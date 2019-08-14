@@ -59,11 +59,29 @@ func sendRequestToRPCQueue(apiPattern string) (res []byte, err error) {
 }
 
 func main() {
+	startServer()
+}
+
+func startServer() {
 	fmt.Println("Starting Public Service")
 	router := mux.NewRouter()
-	handleGetRequest(router, appconfig.PublicAPICountriesPattern)
-	handleGetRequest(router, appconfig.PublicAPITeamsPattern)
 
+	handleRequests(router)
+	setupServer(router)
+}
+
+func handleRequests(router *mux.Router) {
+	// GET Requests
+	publicAPIPatterns := appconfig.GetPublicAPIPatterns()
+	for _, publicAPIPattern := range publicAPIPatterns {
+		handleGetRequest(router, publicAPIPattern)
+	}
+
+	// POST Requests
+	// TODO
+}
+
+func setupServer(router *mux.Router) {
 	srv := &http.Server{
 		Handler:      router,
 		Addr:         appconfig.PublicAPIFullAddress,
@@ -79,6 +97,7 @@ func handleGetRequest(router *mux.Router, apiPattern string) {
 		apiPattern,
 		func(writer http.ResponseWriter, request *http.Request) {
 			log.Printf("[C] Requesting APIPattern(%s)", apiPattern)
+
 			res, err := sendRequestToRPCQueue(apiPattern)
 
 			failOnClientError(err, "Failed to handle RPC Request")
@@ -86,6 +105,4 @@ func handleGetRequest(router *mux.Router, apiPattern string) {
 			writer.Header().Set("Content-Type", "application/json")
 			writer.Write(res)
 		})
-
-	//log.Fatal(http.ListenAndServe(appconfig.PublicAPIAddress, nil))
 }

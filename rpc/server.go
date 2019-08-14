@@ -11,6 +11,8 @@ import (
 	"github.com/streadway/amqp"
 )
 
+var apiPatternMap = appconfig.GetAPIPatternMap()
+
 func failOnServerError(err error, msg string) {
 	if err != nil {
 		log.Fatalf("%s: %s", msg, err)
@@ -18,16 +20,12 @@ func failOnServerError(err error, msg string) {
 }
 
 func getAPIURL(pattern string) string {
-	// We can use a map here, but golang doesn't allow us to hava a const map
-	if pattern == appconfig.PublicAPICountriesPattern {
-		pattern = appconfig.DieAPICountriesPattern
-	}
-
-	if pattern == appconfig.PublicAPITeamsPattern {
-		pattern = appconfig.DieAPITeamsPattern
-	}
-
-	return fmt.Sprintf("%s%s%s", appconfig.DieAPIUrl, appconfig.DieAPIAddress, pattern)
+	return fmt.Sprintf(
+		"%s%s%s",
+		appconfig.DieAPIUrl,
+		appconfig.DieAPIAddress,
+		apiPatternMap[pattern],
+	)
 }
 
 func sendGetRequest(apiPattern string) []byte {

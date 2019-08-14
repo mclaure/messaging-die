@@ -33,6 +33,9 @@ const PublicAPICountriesPattern = "/countries"
 // PublicAPITeamsPattern ...
 const PublicAPITeamsPattern = "/teams"
 
+// PublicAPILeaguesPattern ...
+const PublicAPILeaguesPattern = "/leagues"
+
 // DieAPIAddress ...
 const DieAPIAddress = ":8000"
 
@@ -44,3 +47,28 @@ const DieAPICountriesPattern = "/api/mysql/countries"
 
 // DieAPITeamsPattern ...
 const DieAPITeamsPattern = "/api/mysql/teams"
+
+// DieAPILeaguesPattern ...
+const DieAPILeaguesPattern = "/api/mysql/leagues"
+
+// GetAPIPatternMap ...
+func GetAPIPatternMap() map[string]string {
+	// MAP<PublicAPI><DieAPI>
+	return map[string]string{
+		PublicAPICountriesPattern: DieAPICountriesPattern,
+		PublicAPITeamsPattern:     DieAPITeamsPattern,
+		PublicAPILeaguesPattern:   DieAPILeaguesPattern,
+	}
+}
+
+// GetPublicAPIPatterns ...
+func GetPublicAPIPatterns() []string {
+	m := GetAPIPatternMap()
+
+	keys := []string{}
+	for key := range m {
+		keys = append(keys, key)
+	}
+
+	return keys
+}
