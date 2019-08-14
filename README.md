@@ -14,7 +14,7 @@ What approach would you suggest them to use for efficiently sharing their data w
 
 ------
 
-## Die MannSchaft : Sync API solution
+## die-mannschaft : Sync API solution
 ```
 Simple API that provides soccer statistics using a public database
 ```
@@ -25,8 +25,11 @@ Simple API that provides soccer statistics using a public database
 * [Repository](https://github.com/mclaure/die-mannschaft) - implemented project that replicates API functionality
 
 -----
-
-### The messaging-die RPC Solution
+## messaging-die : Async RPC solution
+```
+RPC repply pattern that provides async RPC response for die-mannschaft API usage
+```
+## C4 Model
 
 ![C4 Model-01](https://user-images.githubusercontent.com/24611413/62994080-1b72fa00-be28-11e9-8dd0-db8c9b944eda.jpg)
 ------
@@ -34,6 +37,7 @@ Simple API that provides soccer statistics using a public database
 ------
 ![Async-Communication](https://user-images.githubusercontent.com/24611413/62910317-10e43200-bd4e-11e9-8e77-70e31d3794ae.jpg)
 ------
+
 ## Installing
 
 * Download the code
