@@ -29,6 +29,13 @@ HOW TO INSTALL
 - 2019/08/12 21:34:03 [*] Consuming from queue (rpc-die-queue)
 - 2019/08/12 21:34:04 [S] Waiting for RPC requests
 
+C4 Model
+========
+<b>System Context<b/></br>
+![C4 Model-01](https://user-images.githubusercontent.com/24611413/62993772-e1edbf00-be26-11e9-8fef-00b4131feacd.jpg)
+<b>Container Diagram<b/></br>
+![C4 Model-02](https://user-images.githubusercontent.com/24611413/62993790-f762e900-be26-11e9-87cd-c9278927d2fa.jpg)
+<b>Example<b/></br>
 ![Async-Communication](https://user-images.githubusercontent.com/24611413/62910317-10e43200-bd4e-11e9-8e77-70e31d3794ae.jpg)
 
 AVAILABLE APIs
