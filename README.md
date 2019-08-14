@@ -1,20 +1,29 @@
-# messaging-die
+## messaging-die
 
 GO project that implements repply correlation (RPC) pattern for systems integration
 
 ![RPC-repply-pattern](https://user-images.githubusercontent.com/24611413/62911259-bc42b600-bd51-11e9-8033-5020fdaff14e.jpg)
 
 ## Getting Started
+### The Die Mannschaft Problem
+```
+Die Mannschaft is Germany's football association that over the past ten years has been including technology into the match field, keeping track of player's statistics, performance, predictions and overall metadata for their internal tournaments.
 
+For a long time they have been keeping all of this data locally, without sharing it with any other organization. In December 2018, the local government has created new laws forcing Die Mannschaft to share all their data with other government institutions. But there's the risk of their infrastructure not being able to support the amount of external requests, they have estimated that at least 5000 organizations will be fetching their data continuously.
+```
+What approach would you suggest them to use for efficiently sharing their data with other organizations?
+
+## Near real-worl API solution
+```
 Simple API that provides soccer statistics using a public database
 - Source Data: https://www.kaggle.com/hugomathien/soccer
 - Data description: http://www.football-data.co.uk/notes.txt
-
+```
 Repository: https://github.com/mclaure/die-mannschaft
 
 ![Sync-Communication](https://user-images.githubusercontent.com/24611413/62910994-b8626400-bd50-11e9-923b-ef0d5d8f3c1f.jpg)
 
-### Installing
+## Installing
 
 1) Download the code
 2) run the following command:
@@ -34,7 +43,7 @@ Repository: https://github.com/mclaure/die-mannschaft
 
 ![Async-Communication](https://user-images.githubusercontent.com/24611413/62910317-10e43200-bd4e-11e9-8e77-70e31d3794ae.jpg)
 
-### Available APIs
+## Available APIs
 
 1)  GET /countries
 2)  GET /teams
