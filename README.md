@@ -39,3 +39,9 @@ Repository: https://github.com/mclaure/die-mannschaft
 1)  GET /countries
 2)  GET /teams
 3)  GET /leagues
+
+## Authors
+
+* **Marcelo Claure** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
+* **Boris Dominguez** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
+* **Claudio Melendres** - *Initial work* - [PurpleBooth](https://github.com/mclaure)
