@@ -1,7 +1,6 @@
 ## messaging-die
 
 GO project that implements repply correlation (RPC) pattern for systems integration
-![RPC-repply-pattern](https://user-images.githubusercontent.com/24611413/62911259-bc42b600-bd51-11e9-8033-5020fdaff14e.jpg)
 
 ## Getting Started
 ### The Die Mannschaft Problem
