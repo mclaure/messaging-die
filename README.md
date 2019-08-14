@@ -10,8 +10,10 @@ Die Mannschaft is Germany's football association that over the past ten years ha
 
 For a long time they have been keeping all of this data locally, without sharing it with any other organization. In December 2018, the local government has created new laws forcing Die Mannschaft to share all their data with other government institutions. But there's the risk of their infrastructure not being able to support the amount of external requests, they have estimated that at least 5000 organizations will be fetching their data continuously.
 
-**What approach would you suggest them to use for efficiently sharing their data with other organizations?**
+What approach would you suggest them to use for efficiently sharing their data with other organizations?
+
 ------
+
 ## Die MannSchaft : Sync API solution
 ```
 Simple API that provides soccer statistics using a public database
@@ -23,7 +25,8 @@ Simple API that provides soccer statistics using a public database
 * [Repository](https://github.com/mclaure/die-mannschaft) - implemented project that replicates API functionality
 
 -----
-## The messaging-die RPC Solution
+
+### The messaging-die RPC Solution
 ### C4 Model
 
 ![C4 Model-01](https://user-images.githubusercontent.com/24611413/62994080-1b72fa00-be28-11e9-8dd0-db8c9b944eda.jpg)
