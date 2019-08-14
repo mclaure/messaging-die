@@ -14,11 +14,10 @@ For a long time they have been keeping all of this data locally, without sharing
 What approach would you suggest them to use for efficiently sharing their data with other organizations?
 
 ## Die MannSchaft : Sync API solution
-Simple API that provides soccer statistics using a public database
-- Source Data: https://www.kaggle.com/hugomathien/soccer
-- Data description: http://www.football-data.co.uk/notes.txt
-
-Repository: https://github.com/mclaure/die-mannschaft
+* Simple API that provides soccer statistics using a public database
+** [Source Data] (https://www.kaggle.com/hugomathien/soccer)
+** [Data description] (http://www.football-data.co.uk/notes.txt)
+** [Repository] (https://github.com/mclaure/die-mannschaft)
 
 ![Sync-Communication](https://user-images.githubusercontent.com/24611413/62910994-b8626400-bd50-11e9-923b-ef0d5d8f3c1f.jpg)
 
