@@ -36,3 +36,4 @@ AVAILABLE APIs
 
 1)  GET /countries
 2)  GET /teams
+3)  GET /leagues
