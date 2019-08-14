@@ -27,7 +27,6 @@ Simple API that provides soccer statistics using a public database
 -----
 
 ### The messaging-die RPC Solution
-### C4 Model
 
 ![C4 Model-01](https://user-images.githubusercontent.com/24611413/62994080-1b72fa00-be28-11e9-8dd0-db8c9b944eda.jpg)
 ------
