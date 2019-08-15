@@ -1,5 +1,7 @@
 package appconfig
 
+import "fmt"
+
 // RabbitMQURL ...
 const RabbitMQURL = "159.65.220.217:5672"
 
@@ -36,6 +38,9 @@ const PublicAPITeamsPattern = "/teams"
 // PublicAPILeaguesPattern ...
 const PublicAPILeaguesPattern = "/leagues"
 
+// PublicAPIPlayerPattern ...
+const PublicAPIPlayerPattern = "/player"
+
 // DieAPIAddress ...
 const DieAPIAddress = ":8000"
 
@@ -43,13 +48,34 @@ const DieAPIAddress = ":8000"
 const DieAPIUrl = "http://localhost"
 
 // DieAPICountriesPattern ...
-const DieAPICountriesPattern = "/api/mysql/countries"
+const DieAPICountriesPattern = "/api//mysql/countries"
 
 // DieAPITeamsPattern ...
 const DieAPITeamsPattern = "/api/mysql/teams"
 
 // DieAPILeaguesPattern ...
 const DieAPILeaguesPattern = "/api/mysql/leagues"
+
+// DieAPIPlayerPattern ...
+const DieAPIPlayerPattern = "/api/mysql/player"
+
+// GetPublicAPIBaseURL ...
+func GetPublicAPIBaseURL() string {
+	return fmt.Sprintf(
+		"%s%s",
+		DieAPIUrl,
+		DieAPIAddress,
+	)
+}
+
+// GetDieAPIBaseURL ...
+func GetDieAPIBaseURL() string {
+	return fmt.Sprintf(
+		"%s%s",
+		PublicAPIUrl,
+		PublicAPIAddress,
+	)
+}
 
 // GetAPIPatternMap ...
 func GetAPIPatternMap() map[string]string {
@@ -58,11 +84,12 @@ func GetAPIPatternMap() map[string]string {
 		PublicAPICountriesPattern: DieAPICountriesPattern,
 		PublicAPITeamsPattern:     DieAPITeamsPattern,
 		PublicAPILeaguesPattern:   DieAPILeaguesPattern,
+		PublicAPIPlayerPattern:    DieAPIPlayerPattern,
 	}
 }
 
-// GetPublicAPIPatterns ...
-func GetPublicAPIPatterns() []string {
+// GetPublicGetAPIPatterns ...
+func GetPublicGetAPIPatterns() []string {
 	m := GetAPIPatternMap()
 
 	keys := []string{}

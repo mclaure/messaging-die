@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/mclaure/messaging-die/appconfig"
+	DieHttp "github.com/mclaure/messaging-die/http"
 	"github.com/mclaure/messaging-die/util"
 	"github.com/streadway/amqp"
 )
@@ -19,26 +20,41 @@ func failOnServerError(err error, msg string) {
 	}
 }
 
-func getAPIURL(pattern string) string {
-	return fmt.Sprintf(
-		"%s%s%s",
-		appconfig.DieAPIUrl,
-		appconfig.DieAPIAddress,
-		apiPatternMap[pattern],
-	)
+func getRealAPIURL(body []byte) string {
+	var realAPIURL string
+
+	requestInfo := DieHttp.GetRequestInfo(body)
+	if len(requestInfo.URLParameters) > 0 {
+		realAPIURL = fmt.Sprintf(
+			"%s%s%s?%s",
+			appconfig.DieAPIUrl,
+			appconfig.DieAPIAddress,
+			apiPatternMap[requestInfo.APIPattern],
+			DieHttp.GetURLParameters(requestInfo.URLParameters),
+		)
+	} else {
+		realAPIURL = fmt.Sprintf(
+			"%s%s%s",
+			appconfig.DieAPIUrl,
+			appconfig.DieAPIAddress,
+			apiPatternMap[requestInfo.APIPattern],
+		)
+	}
+
+	return realAPIURL
 }
 
-func sendGetRequest(apiPattern string) []byte {
-	apiURL := getAPIURL(apiPattern)
-	log.Printf("[S] Send GetRequest: [%s]", apiURL)
+func sendGetRequest(body []byte) []byte {
+	realAPIURL := getRealAPIURL(body)
+	log.Printf("[S] Send GetRequest: [%s]", realAPIURL)
 
-	resp, err := http.Get(apiURL)
+	resp, err := http.Get(realAPIURL)
 	defer resp.Body.Close()
 
-	failOnServerError(err, fmt.Sprintf("Failed to get the response from: %s", apiURL))
+	failOnServerError(err, fmt.Sprintf("Failed to get the response from: %s", realAPIURL))
 
 	data, err := ioutil.ReadAll(resp.Body)
-	failOnServerError(err, fmt.Sprintf("Failed to read the response from: %s", apiURL))
+	failOnServerError(err, fmt.Sprintf("Failed to read the response from: %s", realAPIURL))
 
 	return data
 }
@@ -60,7 +76,7 @@ func main() {
 
 	go func() {
 		for d := range msgs {
-			response := sendGetRequest(string(d.Body))
+			response := sendGetRequest(d.Body)
 
 			err := util.PublishToQueue(
 				d.ReplyTo,

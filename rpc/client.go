@@ -8,10 +8,48 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/mclaure/messaging-die/appconfig"
+	DieHttp "github.com/mclaure/messaging-die/http"
 	"github.com/mclaure/messaging-die/util"
 	"github.com/pborman/uuid"
 	"github.com/streadway/amqp"
 )
+
+/***********************************************************************
+ *                          Start ClientServer                         *
+ ***********************************************************************/
+func main() {
+	startServer()
+}
+
+func startServer() {
+	fmt.Println("Starting Public Service")
+	router := mux.NewRouter()
+
+	handleRequests(router)
+	setupServer(router)
+}
+
+func handleRequests(router *mux.Router) {
+	// GET Requests
+	publicGetAPIPatterns := appconfig.GetPublicGetAPIPatterns()
+	for _, publicGetAPIPattern := range publicGetAPIPatterns {
+		handleGetRequest(router, publicGetAPIPattern)
+	}
+
+	// POST Requests
+	// TODO
+}
+
+func setupServer(router *mux.Router) {
+	srv := &http.Server{
+		Handler:      router,
+		Addr:         appconfig.PublicAPIFullAddress,
+		WriteTimeout: appconfig.PublicAPIWriteTimeout * time.Second,
+		ReadTimeout:  appconfig.PublicAPIReadTimeout * time.Second,
+	}
+
+	log.Fatal(srv.ListenAndServe())
+}
 
 func failOnClientError(err error, msg string) {
 	if err != nil {
@@ -19,7 +57,37 @@ func failOnClientError(err error, msg string) {
 	}
 }
 
-func sendRequestToRPCQueue(apiPattern string) (res []byte, err error) {
+/***********************************************************************
+ *                         Handle Get Requests                         *
+ ***********************************************************************/
+func handleGetRequest(router *mux.Router, apiPattern string) {
+	router.HandleFunc(apiPattern, delegateGetRequest)
+}
+
+func delegateGetRequest(writer http.ResponseWriter, request *http.Request) {
+	res, err := sendRequestToRPCQueue(request)
+
+	failOnClientError(err, "Failed to handle RPC Request")
+
+	writer.Header().Set("Content-Type", "application/json")
+	writer.Write(res)
+}
+
+/***********************************************************************
+ *                         Handle Post Requests                        *
+ ***********************************************************************/
+func handlePostRequest(router *mux.Router, apiPattern string) {
+	router.HandleFunc(apiPattern, delegatePostRequest)
+}
+
+func delegatePostRequest(writer http.ResponseWriter, request *http.Request) {
+	// TODO
+}
+
+/***********************************************************************
+ *                      Send Request To RPC Queue                      *
+ ***********************************************************************/
+func sendRequestToRPCQueue(request *http.Request) (res []byte, err error) {
 	conn, ch := util.GetChannel(
 		appconfig.RabbitMQURL,
 		appconfig.RabbitMQUsername,
@@ -43,7 +111,7 @@ func sendRequestToRPCQueue(apiPattern string) (res []byte, err error) {
 			ContentType:   "text/plain",
 			CorrelationId: corrID,
 			ReplyTo:       q.Name,
-			Body:          []byte(apiPattern),
+			Body:          DieHttp.GetRequestInfoBytes(request),
 		},
 	)
 
@@ -56,53 +124,4 @@ func sendRequestToRPCQueue(apiPattern string) (res []byte, err error) {
 	}
 
 	return
-}
-
-func main() {
-	startServer()
-}
-
-func startServer() {
-	fmt.Println("Starting Public Service")
-	router := mux.NewRouter()
-
-	handleRequests(router)
-	setupServer(router)
-}
-
-func handleRequests(router *mux.Router) {
-	// GET Requests
-	publicAPIPatterns := appconfig.GetPublicAPIPatterns()
-	for _, publicAPIPattern := range publicAPIPatterns {
-		handleGetRequest(router, publicAPIPattern)
-	}
-
-	// POST Requests
-	// TODO
-}
-
-func setupServer(router *mux.Router) {
-	srv := &http.Server{
-		Handler:      router,
-		Addr:         appconfig.PublicAPIFullAddress,
-		WriteTimeout: appconfig.PublicAPIWriteTimeout * time.Second,
-		ReadTimeout:  appconfig.PublicAPIReadTimeout * time.Second,
-	}
-
-	log.Fatal(srv.ListenAndServe())
-}
-
-func handleGetRequest(router *mux.Router, apiPattern string) {
-	router.HandleFunc(
-		apiPattern,
-		func(writer http.ResponseWriter, request *http.Request) {
-			log.Printf("[C] Requesting APIPattern(%s)", apiPattern)
-
-			res, err := sendRequestToRPCQueue(apiPattern)
-
-			failOnClientError(err, "Failed to handle RPC Request")
-
-			writer.Header().Set("Content-Type", "application/json")
-			writer.Write(res)
-		})
 }
